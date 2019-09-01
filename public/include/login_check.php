@@ -10,11 +10,11 @@ if (isset($_COOKIE['token']) && !empty($_COOKIE['token'])){
         // $user = $conn->prepare($sql)->execute();
         $user = $conn->query("select * from users where id = $user_id")->fetch();
     }else{
-        echo("401 Unauthorized, please login");
+        echo("401 Unauthorized, please login.<br><a href='/login.php'>click here to lgoin</a>");
         exit;
     }
 }else{
-    echo("401 Unauthorized, please login");
+    echo("401 Unauthorized, please login.<br><a href='/login.php'>click here to lgoin</a>");
     exit;
   }
   

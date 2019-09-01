@@ -9,7 +9,7 @@
         </thead>
         <tbody>
 <?php
-$conn = OSASQL::connect(); //ORDER BY id DESC
+$conn = OSASQL::connect();
 $stmt = $conn->query("SELECT 
 posts.user_id, users.username, count(posts.id) AS PostNumbers 
 from posts INNER JOIN users ON posts.user_id=users.id
@@ -39,7 +39,17 @@ while ($row = $stmt->fetch()) {
         <tbody>
 <?php
 
-// Work inprogress
+$conn = OSASQL::connect();
+$stmt = $conn->query("SELECT 
+hashtag_names.text, count(hashtags.hashtag_id) AS Used
+from hashtags INNER JOIN hashtag_names ON hashtags.hashtag_id=hashtag_names.id
+group by hashtag_id order by Used desc limit 3;");
+$stmt->execute();
+
+while ($row = $stmt->fetch()) {
+    $text = $row['text'];
+    echo "<tr><td><a href='/index.php?tag=$text'>$text</a></td><td>" . $row['Used'] . "</td></tr>";
+}
 
 ?>
         </tbody>

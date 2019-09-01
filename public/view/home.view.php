@@ -28,12 +28,12 @@ function postImage($imgName, $fullName, $username, $comment, $uploadTime)
 
     function addContent(page) {
         $.ajax({
-                url: '/api.php?page=' + page,
+                url: '/api.php?<?php echo isset($_GET['tag']) ? 'tag='.$_GET['tag']."&" : ""; ?>page=' + page,
                 type: 'GET',
                 contentType: false,
                 processData: false,
                 success: function(msg) {
-                    if (msg == ""){
+                    if (msg.trim() == ""){
                         window.onscroll = null;
                         $('#list').append('<div class="card"><div class="card-content"><div class="content has-text-centered">No more data<br></div></div></div>');
                     }else{
