@@ -10,7 +10,7 @@ $perPage = 3;
 $offset = $page * $perPage;
 
 $conn = OSASQL::connect();//ORDER BY id DESC
-$stmt = $conn->query("SELECT * FROM posts ORDER BY ID DESC LIMIT $offset, $perPage;");
+$stmt = $conn->query("SELECT * FROM posts Where user_id = $user_id ORDER BY ID DESC LIMIT $offset, $perPage;");
 $stmt->execute();
 while ($row = $stmt->fetch()) {
     // var_dump($row);
