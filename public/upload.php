@@ -21,7 +21,8 @@ if (!empty($_POST['image']) && !empty($_POST['message'])){
     $date = date('Y-m-d H:i:s');
     $conn->prepare($sql)->execute([$user_id, $_POST['message'], $imageName, $date]);
 
-    // TODO: get hashtags
+    preg_match_all('(#[A-Za-z_0-9]+)', $_POST['message'], $matches);
+    print_r($matches);
 }else{
     http_response_code(400);
 }

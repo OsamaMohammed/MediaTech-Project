@@ -8,7 +8,7 @@ require 'include/include_all.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Osamah Instagram</title>
     <link rel="stylesheet" href="css/bulma.css">
     <link rel="stylesheet" href="css/croppie.css">
     <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
@@ -19,7 +19,7 @@ require 'include/include_all.php';
 
 <body>
     <!-- NAV BAR  -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar" role="navigation" aria-label="main navigation" style="margin-bottom: 10px;">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
                 <img src="img/logo.png">
