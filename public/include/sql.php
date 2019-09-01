@@ -2,18 +2,19 @@
 
 class OSASQL{
 
-    private $db_connection;
+    private static $db_connection;
     
 
-    function __construct($autoConnect){
-        // Initialize SQL connection
-        if ($autoConnect)
-            return $this->connect();
-    }
-    public function connect() {
-        if ($this->db_connection == null) {
-            $this->db_connection = new \PDO("sqlite:../database.sqlite");
+    public static function connect() {
+        if (self::$db_connection == null) {
+            try {
+                self::$db_connection = new \PDO("sqlite:../database.sqlite");
+            } catch (Exception $e) {
+                echo($e->getMessage());
+                exit('Something weird happened'); //something a user can understand
+            }
         }
-        return $this->db_connection;
+        self::$db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return self::$db_connection;
     }
 }

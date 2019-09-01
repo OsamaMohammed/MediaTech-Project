@@ -114,21 +114,25 @@
 
     $('#submit').click(function(e){
         e.preventDefault();
-        formData.append('message', $('textarea.textarea').val())
-        $.ajax({
-            url: '/upload.php',
-            data: formData,
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            success: function(msg) {
-                alert('success');
-                window.location.href = "/";
-            },
-            error: function() {
-                alert('failed');
-            }
-        });
+        if ($('textarea.textarea').val() == ""){
+            alert("message is required");
+        }else{
+            formData.append('message', $('textarea.textarea').val())
+            $.ajax({
+                url: '/upload.php',
+                data: formData,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function(msg) {
+                    alert('success');
+                    window.location.href = "/";
+                },
+                error: function() {
+                    alert('failed');
+                }
+            });
+        }
     });
 
     function removeCrop(){
