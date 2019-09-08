@@ -12,23 +12,15 @@ function postImage($imgName, $fullName, $username, $comment, $uploadTime){
 $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 $perPage = 3;
 $offset = $page * $perPage;
-$conn = OSASQL::connect();
 
 if (isset($_GET['tag'])){
     // Serve Hashtag posts
-    $stmt = $conn->prepare("SELECT * FROM
-    posts INNER JOIN hashtags ON hashtags.post_id=posts.id
-    Where hashtag_id = (SELECT id from hashtag_names where text = ?)
-    ORDER BY ID DESC LIMIT $offset, $perPage;");
-    $stmt->execute([$_GET['tag']]);
-    foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-        echo postImage($row['image'], $user['full_name'], $user['username'], clickableHashtags($row['comments']), $row['upload_time']);
+    foreach(OSASQL::getHashtagPosts($_GET['tag'], $offset, $perPage) as $row) {
+        echo postImage($row['image'], $row['full_name'], $row['username'], clickableHashtags($row['comments']), $row['upload_time']);
     }
 }else{
     // Serve regular posts
-    $stmt = $conn->query("SELECT * FROM posts Where user_id = $user_id ORDER BY ID DESC LIMIT $offset, $perPage;");
-    $stmt->execute();
-    foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-        echo postImage($row['image'], $user['full_name'], $user['username'], clickableHashtags($row['comments']), $row['upload_time']);
+    foreach(OSASQL::getUserPosts($user_id, $offset, $perPage) as $row) {
+        echo postImage($row['image'], $row['full_name'], $row['username'], clickableHashtags($row['comments']), $row['upload_time']);
     }
 }
